@@ -12,17 +12,18 @@ $ go get github.com/toashd/stego
 The command line tool source provides the basic usage pattern of stego.
 
 ```bash
-  $ stego -e -p lena.png -m "Lena is beautiful" -o out
-  $ stego -d -p out.png
-    Lena is beautiful
-`
+$ stego -e -p lena.png -m "Lena is beautiful" -o out
+$ stego -d -p out.png
+  Lena is beautiful
 ```
 
 API overview:
 
 ```go
-func Encode(w io.Writer, r io.Reader, p *Payload, o *Options) error
-func Decode(w io.Writer, r io.Reader, pwd string) (int64, error)
+  func Encode(w io.Writer, r io.Reader, p *Payload, o *Options) error
+```
+```go
+  func Decode(w io.Writer, r io.Reader, pwd string) (int64, error)
 ```
 
 ## Todo
@@ -35,7 +36,7 @@ func Decode(w io.Writer, r io.Reader, pwd string) (int64, error)
 ## Related Work
 
 Tools
-* [Steghide](http://steghide.sourceforge.net/) is a steganography program that is able to hide data in various kinds of image- and audio-files. The color- respectivly sample-frequencies are not changed thus making the embedding resistant against first-order statistical tests.
+* [Steghide](http://steghide.sourceforge.net/) - steganography program that is able to hide data in various kinds of image- and audio-files
 * [Stegano.js](https://github.com/tuseroni/stegano.js) - steganographic encoder and decoder for javascript
 
 Papers
