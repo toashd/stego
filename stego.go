@@ -45,7 +45,7 @@ func Encode(w io.Writer, r io.Reader, p *Payload, o *Options) error {
 	}
 
 	b := img.Bounds()
-	rgba := image.NewRGBA(b)
+	rgba := image.NewNRGBA(b)
 	draw.Draw(rgba, b, img, b.Min, draw.Src)
 
 	offset := 0
@@ -64,7 +64,7 @@ encloop:
 			if p.Secret != "" {
 				b = b ^ encryptSecret(p.Secret)
 			}
-			col := rgba.At(x, y).(color.RGBA)
+			col := rgba.At(x, y).(color.NRGBA)
 			// xxx0 0000 Red channel gets msb top 3 bits as the lsb
 			col.R = col.R&0xF8 | ((b >> 5) & 0x7)
 			// 000x x000 Green gets the next 2
@@ -106,7 +106,7 @@ func Decode(w io.Writer, r io.Reader, pwd string) (int64, error) {
 	}
 
 	b := img.Bounds()
-	rgba := image.NewRGBA(b)
+	rgba := image.NewNRGBA(b)
 	draw.Draw(rgba, b, img, b.Min, draw.Src)
 
 	var buffer bytes.Buffer
@@ -118,7 +118,7 @@ decloop:
 			if y*x <= 54 {
 				continue
 			}
-			col := rgba.At(x, y).(color.RGBA)
+			col := rgba.At(x, y).(color.NRGBA)
 			// Extract data encoded in
 			// the lower 3 bits of red,
 			// the lower 2 of green, and
