@@ -20,6 +20,10 @@ import (
 // DefaultOutputFormat is the default output file/image format.
 const DefaultOutputFormat = "png"
 
+var (
+	ErrUnsupportedFormat = errors.New("sego: unsupported image format")
+)
+
 // Payload contains the data to encode into the image file.
 type Payload struct {
 	Data   []byte
@@ -91,7 +95,7 @@ encloop:
 		return bmp.Encode(w, rgba)
 	}
 
-	return errors.New("unsupported image format")
+	return ErrUnsupportedFormat
 }
 
 // Decode decodes an images and extracts the payload.
