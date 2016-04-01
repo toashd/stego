@@ -50,14 +50,14 @@ func main() {
 
 		f, err := os.Open(*image)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, err.Error(), "\n")
+			fmt.Fprintf(os.Stderr, err.Error()+"\n")
 			os.Exit(1)
 		}
 		defer f.Close()
 
 		fi, err := f.Stat()
 		if err != nil {
-			fmt.Fprintf(os.Stderr, err.Error(), "\n")
+			fmt.Fprintf(os.Stderr, err.Error()+"\n")
 			os.Exit(1)
 		}
 
@@ -78,7 +78,7 @@ func main() {
 		w := bufio.NewWriter(o)
 		err = stego.Encode(w, f, &stego.Payload{Data: []byte(*message), Secret: *password}, nil)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, err.Error(), "\n")
+			fmt.Fprintf(os.Stderr, err.Error()+"\n")
 			os.Exit(1)
 		}
 		w.Flush()
@@ -92,7 +92,7 @@ func main() {
 
 		f, err := os.Open(*image)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, err.Error(), "\n")
+			fmt.Fprintf(os.Stderr, err.Error()+"\n")
 			os.Exit(1)
 		}
 		defer f.Close()
@@ -100,7 +100,7 @@ func main() {
 		w := bufio.NewWriter(os.Stdout)
 		_, err = stego.Decode(w, f, *password)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, err.Error(), "\n")
+			fmt.Fprintf(os.Stderr, err.Error()+"\n")
 			os.Exit(1)
 		}
 		w.Flush()
@@ -115,7 +115,7 @@ func main() {
 // exitWithUsage prints usage information and terminates.
 func exitWithUsage(message string) {
 	if message != "" {
-		fmt.Fprintf(os.Stderr, message, "\n\n")
+		fmt.Fprintf(os.Stderr, message+"\n\n")
 	}
 	flag.Usage()
 	fmt.Fprintf(os.Stderr, "\n")
